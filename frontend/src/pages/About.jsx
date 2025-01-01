@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Title from "../components/Title";
 import { assets } from "../assets/assets";
 import NewsletterBox from "../components/NewsletterBox";
 
 const About = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div>
       <div className="text-2xl text-center pt-8 border-t">

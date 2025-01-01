@@ -18,6 +18,9 @@ import Verify from "./pages/Verify";
 import PrivacyandPolicy from "./pages/PrivacyandPolicy";
 import Emailverify from "./pages/Emailverify";
 import ResetPassword from "./pages/ResetPassword";
+import TermsConditions from "./pages/TermsConditions";
+import RefundPolicy from "./pages/RefundPolicy";
+import ShippingPolicy from "./pages/ShippingPolicy";
 
 const App = () => {
   return (
@@ -39,6 +42,9 @@ const App = () => {
         <Route path="/orders" element={<Orders />} />
         <Route path="/verify" element={<Verify />} />
         <Route path="/privacyandpolicy" element={<PrivacyandPolicy />} />
+        <Route path="/termsandconditions" element={<TermsConditions />} />
+        <Route path="/refundpolicy" element={<RefundPolicy />} />
+        <Route path="/shippingpolicy" element={<ShippingPolicy />} />
       </Routes>
       <Footer />
     </div>
