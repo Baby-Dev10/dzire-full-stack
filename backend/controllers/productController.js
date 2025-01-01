@@ -92,4 +92,10 @@ const singleProduct = async (req, res) => {
   }
 };
 
+{
+  /*const addtoWishlist = async (req, res) => {
+  const { productId } = req.body;
+};*/
+}
+
 export { listProducts, addProduct, removeProduct, singleProduct };

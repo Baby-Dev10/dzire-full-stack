@@ -4,7 +4,7 @@ import userModel from "../models/userModel.js";
 import razorpay from "razorpay";
 
 // global variables
-const currency = "inr";
+const currency = " ₹ ";
 const deliveryCharge = 40;
 
 // gateway initialize

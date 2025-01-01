@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { assets } from "../assets/assets";
 import { Link, NavLink } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
+import axios from "axios";
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
@@ -14,6 +15,25 @@ const Navbar = () => {
     setToken,
     setCartItems,
   } = useContext(ShopContext);
+
+  const sendVerificationOtp = async () => {
+    try {
+      axios.defaults.withCredentials = true;
+
+      const { data } = await axios.post(
+        backendUrl + "/api/user/send-verify-otp"
+      );
+
+      if (data.success) {
+        navigate("/email-verify");
+        toast.success(data.message);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   const logout = () => {
     navigate("/login");
@@ -76,6 +96,14 @@ const Navbar = () => {
                 >
                   Orders
                 </p>
+
+                <p
+                  onClick={sendVerificationOtp}
+                  className="cursor-pointer hover:text-black"
+                >
+                  Verify Email
+                </p>
+
                 <p onClick={logout} className="cursor-pointer hover:text-black">
                   Logout
                 </p>
