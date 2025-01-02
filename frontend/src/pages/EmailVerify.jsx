@@ -66,7 +66,7 @@ const Emailverify = () => {
         <hr className="border-none h-[1.5px] w-8 bg-gray-800" />
       </div>
       <p className="prata-regular px-3 py-2 text-gray-800 flex">
-        Enter the 6-digit OTP sent to your email
+        Enter the 6-digit OTP
       </p>
       <div className="flex justify-center mb-8" onPaste={handlePaste}>
         {Array(6)

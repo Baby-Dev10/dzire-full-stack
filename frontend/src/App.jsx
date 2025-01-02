@@ -14,13 +14,13 @@ import Footer from "./components/Footer";
 import SearchBar from "./components/SearchBar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Emailverify from "./pages/Emailverify";
 import Verify from "./pages/Verify";
 import PrivacyandPolicy from "./pages/PrivacyandPolicy";
 import ResetPassword from "./pages/ResetPassword";
 import TermsConditions from "./pages/TermsConditions";
 import RefundPolicy from "./pages/RefundPolicy";
 import ShippingPolicy from "./pages/ShippingPolicy";
+import Emailverify from "./pages/EmailVerify";
 
 const App = () => {
   return (
