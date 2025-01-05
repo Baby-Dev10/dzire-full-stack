@@ -22,7 +22,21 @@ const Contact = () => {
             Rahul ka ghr ka address <br /> Airoli, IND
           </p>
           <p className=" text-gray-500">
-            Phone no.:+91-9321384125 <br /> Email: admin@thedzire.com
+            <a
+              href="https://wa.me/9321384125"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-black hover:text-blue-500"
+            >
+              +91-9321384125
+            </a>
+
+            <a
+              href="mailto:Contact@thedzire.com"
+              className="flex flex-col text-black hover:text-blue-500"
+            >
+              Contact@thedzire.com
+            </a>
           </p>
         </div>
       </div>

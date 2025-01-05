@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import { assets } from "../assets/assets";
 import RelatedProducts from "../components/RelatedProducts";
-import Cart from "./Cart";
 import { toast } from "react-toastify";
 
 const Product = () => {
@@ -12,6 +11,12 @@ const Product = () => {
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
+  const [reviews, setReviews] = useState([]);
+  const [newReview, setNewReview] = useState({
+    name: "",
+    comment: "",
+    rating: 0,
+  });
 
   const fetchProductData = async () => {
     products.map((item) => {
@@ -23,15 +28,26 @@ const Product = () => {
     });
   };
 
+  const handleReviewSubmit = (e) => {
+    e.preventDefault();
+    if (newReview.name && newReview.comment && newReview.rating) {
+      setReviews([...reviews, newReview]);
+      setNewReview({ name: "", comment: "", rating: 0 });
+      toast.success("Thank you for your review!");
+    } else {
+      toast.error("Please fill in all fields and provide a rating.");
+    }
+  };
+
   useEffect(() => {
     fetchProductData();
   }, [productId, products]);
 
   return productData ? (
     <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
-      {/*----------- Product Data-------------- */}
+      {/* Product Data */}
       <div className="flex gap-12 sm:gap-12 flex-col sm:flex-row">
-        {/*---------- Product Images------------- */}
+        {/* Product Images */}
         <div className="flex-1 flex flex-col-reverse gap-3 sm:flex-row">
           <div className="flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[18.7%] w-full">
             {productData.image.map((item, index) => (
@@ -49,12 +65,12 @@ const Product = () => {
           </div>
         </div>
 
-        {/* -------- Product Info ---------- */}
+        {/* Product Info */}
         <div className="flex-1 text-wrap">
-          <h1 className="font-medium text-2xl mt-2 break-words ">
+          <h1 className="font-medium text-2xl mt-2 break-words">
             {productData.name}
           </h1>
-          <div className=" flex items-center gap-1 mt-2">
+          <div className="flex items-center gap-1 mt-2">
             <img src={assets.star_icon} alt="" className="w-3 5" />
             <img src={assets.star_icon} alt="" className="w-3 5" />
             <img src={assets.star_icon} alt="" className="w-3 5" />
@@ -103,33 +119,83 @@ const Product = () => {
         </div>
       </div>
 
-      {/* ---------- Description & Review Section ------------- */}
+      {/* Description & Reviews Section */}
       <div className="mt-20">
         <div className="flex">
-          <b className="border px-5 py-3 text-sm">Description</b>
-          <p className="border px-5 py-3 text-sm">Reviews </p>
+          <p className="border px-5 py-3 text-sm">Reviews</p>
         </div>
         <div className="flex flex-col gap-4 border px-6 py-6 text-sm text-gray-500">
-          <p>
-            An e-commerce website is an online platform that facilitates the
-            buying and selling of products or services over the internet. It
-            serves as a virtual marketplace where businesses and individuals can
-            showcase their products, interact with customers, and conduct
-            transactions without the need for a physical presence. E-commerce
-            websites have gained immense popularity due to their convenience,
-            accessibility, and the global reach they offer.
-          </p>
-          <p>
-            E-commerce websites typically display products or services along
-            with detailed descriptions, images, prices, and any available
-            variations (e.g., sizes, colors). Each product usually has its own
-            dedicated page with relevant information.
-          </p>
+          <h2 className="text-lg font-semibold">Customer Reviews</h2>
+          {reviews.length > 0 ? (
+            reviews.map((review, index) => (
+              <div key={index} className="border p-4 rounded-md shadow-sm">
+                <div className="flex items-center mb-2">
+                  {[...Array(5)].map((_, i) => (
+                    <span
+                      key={i}
+                      className={`text-xl ${
+                        i < review.rating ? "text-yellow-500" : "text-gray-300"
+                      }`}
+                    >
+                      ★
+                    </span>
+                  ))}
+                </div>
+                <p className="font-medium">{review.name}</p>
+                <p>{review.comment}</p>
+              </div>
+            ))
+          ) : (
+            <p>No reviews yet. Be the first to leave a review!</p>
+          )}
+          <form
+            onSubmit={handleReviewSubmit}
+            className="flex flex-col gap-4 mt-4"
+          >
+            <input
+              type="text"
+              name="name"
+              value={newReview.name}
+              onChange={(e) =>
+                setNewReview({ ...newReview, name: e.target.value })
+              }
+              placeholder="Your Name"
+              className="border p-2 rounded w-full"
+            />
+            <textarea
+              name="comment"
+              value={newReview.comment}
+              onChange={(e) =>
+                setNewReview({ ...newReview, comment: e.target.value })
+              }
+              placeholder="Your Review"
+              className="border p-2 rounded w-full"
+            ></textarea>
+            <div className="flex items-center gap-2">
+              <p className="font-medium">Your Rating:</p>
+              {[...Array(5)].map((_, i) => (
+                <span
+                  key={i}
+                  onClick={() => setNewReview({ ...newReview, rating: i + 1 })}
+                  className={`cursor-pointer text-xl ${
+                    i < newReview.rating ? "text-yellow-500" : "text-gray-300"
+                  }`}
+                >
+                  ★
+                </span>
+              ))}
+            </div>
+            <button
+              type="submit"
+              className="bg-black text-white px-4 py-2 rounded text-sm"
+            >
+              Submit Review
+            </button>
+          </form>
         </div>
       </div>
 
-      {/* --------- display related products ---------- */}
-
+      {/* Related Products */}
       <RelatedProducts
         category={productData.category}
         subCategory={productData.subCategory}
