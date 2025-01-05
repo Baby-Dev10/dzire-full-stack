@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 const PlaceOrder = () => {
   const [method, setMethod] = useState("cod");
   const {
+    isLoggedIn,
     navigate,
     backendUrl,
     token,
@@ -34,13 +35,6 @@ const PlaceOrder = () => {
     const name = event.target.name;
     const value = event.target.value;
     setFormData((data) => ({ ...data, [name]: value }));
-  };
-
-  const handlePlaceOrder = () => {
-    if (!isLoggedIn) {
-      toast.warning("Please login first to place an order!");
-      return;
-    }
   };
 
   const initPay = (order) => {
@@ -151,6 +145,20 @@ const PlaceOrder = () => {
       console.log(error);
       toast.error(error.message);
     }
+  };
+
+  const handlePlaceOrder = (event) => {
+    event.preventDefault();
+    if (!isLoggedIn) {
+      toast.warning("Please login first to place your order!", {
+        position: "top-center",
+        onClose: () => navigate("/login"),
+      });
+      return;
+    }
+
+    // Proceed with order placement logic (e.g., `onSubmitHandler`)
+    console.log("Placing order...");
   };
 
   return (
