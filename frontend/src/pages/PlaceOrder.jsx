@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import Title from "../components/Title";
 import CartTotal from "../components/CartTotal";
-import { assets } from "../assets/assets";
+//import { assets } from "../assets/assets";
 import { ShopContext } from "../context/ShopContext";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -34,6 +34,13 @@ const PlaceOrder = () => {
     const name = event.target.name;
     const value = event.target.value;
     setFormData((data) => ({ ...data, [name]: value }));
+  };
+
+  const handlePlaceOrder = () => {
+    if (!isLoggedIn) {
+      toast.warning("Please login first to place an order!");
+      return;
+    }
   };
 
   const initPay = (order) => {
@@ -285,6 +292,7 @@ const PlaceOrder = () => {
             <button
               type="submit"
               className="bg-black text-white px-16 py-3 text-sm"
+              onClick={handlePlaceOrder}
             >
               PLACE ORDER
             </button>
