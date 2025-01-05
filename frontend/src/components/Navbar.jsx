@@ -2,10 +2,15 @@ import React, { useContext, useState } from "react";
 import { assets } from "../assets/assets";
 import { Link, NavLink } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
-import axios from "axios";
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
 
   const {
     setShowSearch,
@@ -15,25 +20,6 @@ const Navbar = () => {
     setToken,
     setCartItems,
   } = useContext(ShopContext);
-
-  const sendVerificationOtp = async () => {
-    try {
-      axios.defaults.withCredentials = true;
-
-      const response = await axios.post(
-        backendUrl + "/api/user/send-verify-otp"
-      );
-
-      if (response.data.success) {
-        navigate("/email-verify");
-        toast.success(response.data.message);
-      } else {
-        toast.error(response.data.message);
-      }
-    } catch (error) {
-      toast.error(response.error.message);
-    }
-  };
 
   const logout = () => {
     navigate("/login");
@@ -65,6 +51,48 @@ const Navbar = () => {
           <p>CONTACT</p>
           <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
         </NavLink>
+        <div className="relative">
+          <button
+            onClick={toggleDropdown}
+            className="flex flex-col items-center gap-1 focus:outline-none"
+          >
+            <p>MORE</p>
+            <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
+          </button>
+
+          {isDropdownOpen && (
+            <div className="absolute mt-2 bg-white rounded-md shadow-lg w-40 z-10">
+              <NavLink
+                to="/refundpolicy"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                onClick={() => setIsDropdownOpen(false)}
+              >
+                Refund Policy
+              </NavLink>
+              <NavLink
+                to="/privacyandpolicy"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                onClick={() => setIsDropdownOpen(false)}
+              >
+                Privacy Policy
+              </NavLink>
+              <NavLink
+                to="/termsandconditions"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                onClick={() => setIsDropdownOpen(false)}
+              >
+                Terms & Conditions
+              </NavLink>
+              <NavLink
+                to="/shippingpolicy"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                onClick={() => setIsDropdownOpen(false)}
+              >
+                Shipping Policy
+              </NavLink>
+            </div>
+          )}
+        </div>
       </ul>
 
       <div className="flex items-center gap-6">
@@ -89,19 +117,17 @@ const Navbar = () => {
           {token && (
             <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">
               <div className="flex flex-col gap-2 w-36 py-3 px-5  bg-slate-100 text-gray-500 rounded">
-                <p className="cursor-pointer hover:text-black">My Profile</p>
+                <p
+                  onClick={() => navigate("/profilepage")}
+                  className="cursor-pointer hover:text-black"
+                >
+                  My Profile
+                </p>
                 <p
                   onClick={() => navigate("/orders")}
                   className="cursor-pointer hover:text-black"
                 >
                   Orders
-                </p>
-
-                <p
-                  onClick={sendVerificationOtp}
-                  className="cursor-pointer hover:text-black"
-                >
-                  Verify Email
                 </p>
 
                 <p onClick={logout} className="cursor-pointer hover:text-black">
@@ -167,6 +193,46 @@ const Navbar = () => {
           >
             CONTACT
           </NavLink>
+
+          {/* MORE Toggle Dropdown */}
+          <div
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="flex flex-col py-2 pl-6 border cursor-pointer"
+          >
+            <p>MORE</p>
+            {isDropdownOpen && (
+              <div className="flex flex-col gap-1 border-t pt-2">
+                <NavLink
+                  onClick={() => setIsMoreDropdownOpen(false)}
+                  className="py-2 pl-6"
+                  to="/refundpolicy"
+                >
+                  Refund Policy
+                </NavLink>
+                <NavLink
+                  onClick={() => setIsMoreDropdownOpen(false)}
+                  className="py-2 pl-6"
+                  to="/privacyandpolicy"
+                >
+                  Privacy Policy
+                </NavLink>
+                <NavLink
+                  onClick={() => setIsMoreDropdownOpen(false)}
+                  className="py-2 pl-6"
+                  to="/termsandconditions"
+                >
+                  Terms & Conditions
+                </NavLink>
+                <NavLink
+                  onClick={() => setIsMoreDropdownOpen(false)}
+                  className="py-2 pl-6"
+                  to="/shippingpolicy"
+                >
+                  Shipping Policy
+                </NavLink>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

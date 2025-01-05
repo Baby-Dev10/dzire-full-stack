@@ -20,7 +20,7 @@ import ResetPassword from "./pages/ResetPassword";
 import TermsConditions from "./pages/TermsConditions";
 import RefundPolicy from "./pages/RefundPolicy";
 import ShippingPolicy from "./pages/ShippingPolicy";
-import Emailverify from "./pages/EmailVerify";
+import ProfilePage from "./pages/ProfilePage";
 
 const App = () => {
   return (
@@ -36,7 +36,6 @@ const App = () => {
         <Route path="/product/:productId" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/email-verify" element={<Emailverify />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/place-order" element={<PlaceOrder />} />
         <Route path="/orders" element={<Orders />} />
@@ -45,6 +44,7 @@ const App = () => {
         <Route path="/termsandconditions" element={<TermsConditions />} />
         <Route path="/refundpolicy" element={<RefundPolicy />} />
         <Route path="/shippingpolicy" element={<ShippingPolicy />} />
+        <Route path="/profilepage" element={<ProfilePage />} />
       </Routes>
       <Footer />
     </div>

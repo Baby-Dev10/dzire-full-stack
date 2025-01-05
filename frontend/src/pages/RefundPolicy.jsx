@@ -9,7 +9,7 @@ const RefundPolicy = () => {
       <h1 className="flex justify-center text-2xl text-black font-extrabold">
         Refund Policy
       </h1>
-      <p className="text-justify flex text-s w-1/2 px-2 py-4 mx-auto">
+      <p className="text-justify flex text-s md:w-1/2 md:px-2  py-4 mx-auto w-full px-0">
         Our policy lasts 30 days. If 30 days have gone by since your purchase,
         unfortunately we can't offer you a refund or exchange. To be eligible
         for a return, your item must be unused and in the same condition that
@@ -24,7 +24,7 @@ const RefundPolicy = () => {
           Additional non-returnable items:
         </p>
         <ul>
-          <li className="text-justify flex text-s w-1/2 px-2 py-1 mx-auto">
+          <li className="text-justify flex text-s w-1/2 px-2 py-1 mx-auto ">
             1. Gift cards.
           </li>
           <li className="text-justify flex text-s w-1/2 px-2 py-1 mx-auto">

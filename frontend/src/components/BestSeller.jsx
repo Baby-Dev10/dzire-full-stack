@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+{
+  /*import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
 import Title from "./Title";
 import ProductItem from "./ProductItem";
@@ -37,4 +38,5 @@ const BestSeller = () => {
   );
 };
 
-export default BestSeller;
+export default BestSeller;*/
+}

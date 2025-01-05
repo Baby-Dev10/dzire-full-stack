@@ -1,32 +1,67 @@
 import React, { useState } from "react";
-import { assets } from "../assets/assets";
+import axios from "axios";
+
 const ResetPassword = () => {
   const [email, setEmail] = useState("");
-  const [currentState, setCurrentState] = useState("Reset Password");
+  const [otp, setOtp] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/auth/reset-password",
+        {
+          email,
+          otp,
+          newPassword,
+        }
+      );
+      setMessage(response.data.message);
+    } catch (error) {
+      setMessage("Something went wrong. Please try again.");
+    }
+  };
+
   return (
-    <form className="flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-gray-800">
-      <div className="inline-flex items-center gap-2 mb-2 mt-10">
-        <p className="prata-regular text-3x1">{currentState}</p>
-        <hr className="border-none h-[1.5px] w-8 bg-gray-800" />
-      </div>
-      <p className="prata-regular px-3 py-2 text-gray-800 flex">
-        Enter your registered email address
-      </p>
-      <div className="flex items-center border border-gray-400 px-3 py-2 gap-2 rounded-full">
-        <img src={assets.mail_icon} alt="" className="w-3 h-3" />
+    <div className="flex flex-col items-center mt-10">
+      <h2 className="text-2xl font-bold mb-4">Reset Password</h2>
+      <form onSubmit={handleSubmit} className="w-full max-w-sm">
         <input
           type="email"
-          placeholder="Email id"
-          className="bg-transparent outline-none"
+          placeholder="Enter your email"
           value={email}
-          oncChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           required
+          className="w-full px-4 py-2 border rounded mb-4"
         />
-      </div>
-      <button className="bg-black text-white text-s px-10 py-4 rounded-full">
-        Submit
-      </button>
-    </form>
+        <input
+          type="text"
+          placeholder="Enter OTP"
+          value={otp}
+          onChange={(e) => setOtp(e.target.value)}
+          required
+          className="w-full px-4 py-2 border rounded mb-4"
+        />
+        <input
+          type="password"
+          placeholder="Enter new password"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+          required
+          className="w-full px-4 py-2 border rounded mb-4"
+        />
+        <button
+          type="submit"
+          className="w-full bg-black text-white py-2 rounded"
+        >
+          Reset Password
+        </button>
+      </form>
+      {message && <p className="mt-4">{message}</p>}
+    </div>
   );
 };
 
