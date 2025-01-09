@@ -21,7 +21,6 @@ import TermsConditions from "./pages/TermsConditions";
 import RefundPolicy from "./pages/RefundPolicy";
 import ShippingPolicy from "./pages/ShippingPolicy";
 import ProfilePage from "./pages/ProfilePage";
-import RequestResetPassword from "./pages/RequestResetPassword";
 import ResetPasswordForm from "./pages/ResetPasswordForm";
 
 const App = () => {

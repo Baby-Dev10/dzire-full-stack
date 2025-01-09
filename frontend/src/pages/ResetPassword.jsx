@@ -29,7 +29,7 @@ const ResetPassword = () => {
       <h1 className="text-3xl mb-4">Reset Password</h1>
       {!linkSent ? (
         <>
-          <p>Enter your registered email address to receive a reset link:</p>
+          <p>Enter your registered email.</p>
           <form onSubmit={handleSubmit} className="w-full">
             <div className="flex flex-col gap-4">
               <input
