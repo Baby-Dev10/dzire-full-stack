@@ -1,75 +1,58 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
 
 const ResetPassword = () => {
-<<<<<<< HEAD
-=======
-  const { token } = useParams();
->>>>>>> 4123ad3c83d349a9f8bd346a9bf09935fd50fb00
-  const [newPassword, setNewPassword] = useState("");
-  const [message, setMessage] = useState("");
-  const { search } = useLocation();
-  const token = new URLSearchParams(search).get("token");
+  const [email, setEmail] = useState("");
+  const [linkSent, setLinkSent] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-<<<<<<< HEAD
       const response = await axios.post(
-        "http://localhost:4000/api/auth/reset-password",
-        { token, newPassword }
+        "http://localhost:4000/api/auth/send-reset-link",
+        { email }
       );
-=======
-      const response = await axios.post("/api/auth/reset-password", {
-        token,
-        newPassword,
-      });
->>>>>>> 4123ad3c83d349a9f8bd346a9bf09935fd50fb00
-      setMessage(response.data.message);
-    } catch (error) {
-      setMessage(error.response?.data?.message || "Something went wrong.");
+      if (response.data.success) {
+        setLinkSent(true);
+        setError("");
+      } else {
+        setError(response.data.message);
+      }
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
     }
   };
 
   return (
-<<<<<<< HEAD
-    <div className="flex flex-col items-center mt-10">
-      <h2 className="text-2xl font-bold mb-4">Reset Password</h2>
-      <form onSubmit={handleSubmit} className="w-full max-w-sm">
-        <input
-          type="password"
-          placeholder="Enter new password"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-          required
-          className="w-full px-4 py-2 border rounded mb-4"
-        />
-        <button
-          type="submit"
-          className="w-full bg-black text-white py-2 rounded"
-        >
-          Reset Password
-        </button>
-      </form>
-      {message && <p className="mt-4">{message}</p>}
+    <div className="flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-gray-800">
+      <h1 className="text-3xl mb-4">Reset Password</h1>
+      {!linkSent ? (
+        <>
+          <p>Enter your registered email address to receive a reset link:</p>
+          <form onSubmit={handleSubmit} className="w-full">
+            <div className="flex flex-col gap-4">
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="border px-4 py-2 rounded"
+                required
+              />
+              <button className="bg-black text-white px-4 py-2 rounded">
+                Send Reset Link
+              </button>
+            </div>
+          </form>
+          {error && <p className="text-red-500 mt-2">{error}</p>}
+        </>
+      ) : (
+        <p className="text-green-500">
+          A reset link has been sent to your email. Please check your inbox.
+        </p>
+      )}
     </div>
-=======
-    <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
-      <h2>Enter New Password</h2>
-      <input
-        type="password"
-        placeholder="New Password"
-        value={newPassword}
-        onChange={(e) => setNewPassword(e.target.value)}
-        required
-      />
-      <button type="submit">Reset Password</button>
-      {message && <p>{message}</p>}
-    </form>
->>>>>>> 4123ad3c83d349a9f8bd346a9bf09935fd50fb00
   );
 };
 
