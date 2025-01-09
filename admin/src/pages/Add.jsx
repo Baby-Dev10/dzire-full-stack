@@ -190,7 +190,7 @@ const Add = ({ token }) => {
           >
             <option value="Men">Men</option>
             <option value="Unisex">Unisex</option>
-            <option value="Kids">Kids</option>
+            {/*<option value="Kids">Kids</option>*/}
           </select>
         </div>
 
@@ -202,7 +202,7 @@ const Add = ({ token }) => {
           >
             <option value="Topwear">Topwear</option>
             <option value="Bottomwear">Bottomwear</option>
-            <option value="Winterwear">Winterwear</option>
+            {/*<option value="Winterwear">Winterwear</option>*/}
           </select>
         </div>
 

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
-import { assets } from "../assets/assets";
 import RelatedProducts from "../components/RelatedProducts";
 import { toast } from "react-toastify";
 
@@ -18,6 +17,7 @@ const Product = () => {
     rating: 0,
   });
 
+  // Fetch product data based on the productId from URL
   const fetchProductData = async () => {
     products.map((item) => {
       if (item._id === productId) {
@@ -28,20 +28,37 @@ const Product = () => {
     });
   };
 
+  // Handle Review Submission
   const handleReviewSubmit = (e) => {
     e.preventDefault();
     if (newReview.name && newReview.comment && newReview.rating) {
-      setReviews([...reviews, newReview]);
+      const updatedReviews = [...reviews, newReview];
+      setReviews(updatedReviews);
       setNewReview({ name: "", comment: "", rating: 0 });
+
+      // Save reviews to localStorage
+      localStorage.setItem(
+        `reviews_${productId}`,
+        JSON.stringify(updatedReviews)
+      );
+
       toast.success("Thank you for your review!");
     } else {
       toast.error("Please fill in all fields and provide a rating.");
     }
   };
 
+  // Load reviews from localStorage when productId changes
   useEffect(() => {
     fetchProductData();
   }, [productId, products]);
+
+  useEffect(() => {
+    const savedReviews = localStorage.getItem(`reviews_${productId}`);
+    if (savedReviews) {
+      setReviews(JSON.parse(savedReviews));
+    }
+  }, [productId]);
 
   return productData ? (
     <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
@@ -70,14 +87,6 @@ const Product = () => {
           <h1 className="font-medium text-2xl mt-2 break-words">
             {productData.name}
           </h1>
-          <div className="flex items-center gap-1 mt-2">
-            <img src={assets.star_icon} alt="" className="w-3 5" />
-            <img src={assets.star_icon} alt="" className="w-3 5" />
-            <img src={assets.star_icon} alt="" className="w-3 5" />
-            <img src={assets.star_icon} alt="" className="w-3 5" />
-            <img src={assets.star_dull_icon} alt="" className="w-3 5" />
-            <p className="pl-2">(122)</p>
-          </div>
           <p className="mt-5 text-3xl font-medium">
             {currency}
             {productData.price}
@@ -111,11 +120,6 @@ const Product = () => {
             ADD TO CART
           </button>
           <hr className="mt-8 sm:w-4/5" />
-          <div className="text-sm text-gray-500 mt-5 flex flex-col gap-1">
-            <p>100% Original product.</p>
-            <p>Cash on delivery is available on this product.</p>
-            <p>Easy return and exchange policy within 5 days.</p>
-          </div>
         </div>
       </div>
 
@@ -202,7 +206,7 @@ const Product = () => {
       />
     </div>
   ) : (
-    <div className=" opacity-0"></div>
+    <div className="opacity-0"></div>
   );
 };
 
