@@ -20,18 +20,31 @@ const ProfilePage = () => {
     },
   ]);
 
+  const [orderHistory, setOrderHistory] = useState([
+    { orderId: 123456, date: "Dec 10, 2025", status: "Delivered" },
+    { orderId: 654321, date: "Nov 15, 2025", status: "Shipped" },
+  ]);
+
+  const [newAddress, setNewAddress] = useState("");
+
   const handleAddAddress = () => {
-    const newAddress = {
+    if (newAddress.trim() === "") return;
+    const newAddressObj = {
       id: addresses.length + 1,
       type: "New Address",
-      address: "789 New Road, ExampleCity, EX, 12345",
+      address: newAddress,
     };
-    setAddresses([...addresses, newAddress]);
+    setAddresses([...addresses, newAddressObj]);
+    setNewAddress("");
+  };
+
+  const handleDeleteAddress = (id) => {
+    setAddresses(addresses.filter((addr) => addr.id !== id));
   };
 
   return (
     <div className="p-5 sm:p-10 bg-gray-100 min-h-screen">
-      <h1 className="text-2xl font-semibold mb-5 text-gray-800">My Profile</h1>
+      <h1 className="text-3xl font-semibold mb-5 text-gray-800">My Profile</h1>
 
       {/* User Information Section */}
       <div className="bg-white p-5 shadow-lg rounded-lg mb-5">
@@ -55,21 +68,42 @@ const ProfilePage = () => {
           Saved Addresses
         </h2>
         {addresses.map((addr) => (
-          <div key={addr.id} className="mb-4 p-4 border rounded-lg">
-            <p>
-              <strong>Type:</strong> {addr.type}
-            </p>
-            <p>
-              <strong>Address:</strong> {addr.address}
-            </p>
+          <div
+            key={addr.id}
+            className="mb-4 p-4 border rounded-lg flex justify-between items-start"
+          >
+            <div>
+              <p>
+                <strong>Type:</strong> {addr.type}
+              </p>
+              <p>
+                <strong>Address:</strong> {addr.address}
+              </p>
+            </div>
+            <button
+              className="text-red-500 hover:text-red-700"
+              onClick={() => handleDeleteAddress(addr.id)}
+            >
+              Delete
+            </button>
           </div>
         ))}
-        <button
-          className="bg-blue-500 text-white px-4 py-2 rounded mt-3"
-          onClick={handleAddAddress}
-        >
-          Add New Address
-        </button>
+
+        <div className="mt-5">
+          <input
+            type="text"
+            placeholder="Enter new address"
+            value={newAddress}
+            onChange={(e) => setNewAddress(e.target.value)}
+            className="border p-2 rounded w-full mb-3"
+          />
+          <button
+            className="bg-blue-500 text-white px-4 py-2 rounded"
+            onClick={handleAddAddress}
+          >
+            Add New Address
+          </button>
+        </div>
       </div>
 
       {/* Order History Section */}
@@ -78,28 +112,19 @@ const ProfilePage = () => {
           Order History
         </h2>
         <ul>
-          <li className="mb-2">
-            <p>
-              <strong>Order #:</strong> 123456
-            </p>
-            <p>
-              <strong>Date:</strong> Dec 10, 2025
-            </p>
-            <p>
-              <strong>Status:</strong> Delivered
-            </p>
-          </li>
-          <li className="mb-2">
-            <p>
-              <strong>Order #:</strong> 654321
-            </p>
-            <p>
-              <strong>Date:</strong> Nov 15, 2025
-            </p>
-            <p>
-              <strong>Status:</strong> Shipped
-            </p>
-          </li>
+          {orderHistory.map((order) => (
+            <li key={order.orderId} className="mb-4">
+              <p>
+                <strong>Order #:</strong> {order.orderId}
+              </p>
+              <p>
+                <strong>Date:</strong> {order.date}
+              </p>
+              <p>
+                <strong>Status:</strong> {order.status}
+              </p>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
