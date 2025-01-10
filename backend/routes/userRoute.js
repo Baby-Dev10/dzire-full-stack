@@ -4,22 +4,13 @@ import {
   register,
   admin,
   logout,
-  sendVerifyOtp,
-  verifyEmail,
-  isAuthenticated,
-  sendResetOtp,
 } from "../controllers/userController.js";
-import authUser from "../middleware/auth.js";
 
 const userRouter = express.Router();
 
 userRouter.post("/register", register);
 userRouter.post("/login", login);
 userRouter.post("/logout", logout);
-userRouter.post("/send-verify-otp", authUser, sendVerifyOtp);
-userRouter.post("/verify-account", authUser, verifyEmail);
-userRouter.post("/is-auth", authUser, isAuthenticated);
-userRouter.post("/send-reset-otp", sendResetOtp);
 userRouter.post("/admin", admin);
 
 export default userRouter;
