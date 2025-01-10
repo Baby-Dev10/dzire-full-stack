@@ -1,11 +1,17 @@
 import express from "express";
-import nodemailer from "nodemailer";
-import User from "../models/userModel.js";
+import { sendResetLink, resetPassword } from "../controllers/authController.js";
+
+//import nodemailer from "nodemailer";
+//import User from "../models/userModel.js";
 
 const authRouter = express.Router();
 
+authRouter.post("/send-reset-link", sendResetLink);
+authRouter.post("/reset-password", resetPassword);
+
 // Reset Password Route
-authRouter.post("/reset-password", async (req, res) => {
+{
+  /*authRouter.post("/reset-password", async (req, res) => {
   const { email } = req.body;
 
   try {
@@ -36,7 +42,7 @@ authRouter.post("/reset-password", async (req, res) => {
 
     // Send email
     const mailOptions = {
-      from: process.env.SMTP_USER,
+      from: process.env.SENDER_EMAIL,
       to: email,
       subject: "Password Reset Request",
       html: `
@@ -57,6 +63,7 @@ authRouter.post("/reset-password", async (req, res) => {
       .status(500)
       .json({ message: "An error occurred. Please try again later." });
   }
-});
+});*/
+}
 
 export default authRouter;

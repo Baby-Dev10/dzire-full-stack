@@ -3,64 +3,55 @@ import axios from "axios";
 
 const ResetPassword = () => {
   const [email, setEmail] = useState("");
-  const [otp, setOtp] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [linkSent, setLinkSent] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/auth/reset-password",
-        {
-          email,
-          otp,
-          newPassword,
-        }
+        "http://localhost:4000/api/auth/send-reset-link",
+        { email }
       );
-      setMessage(response.data.message);
-    } catch (error) {
-      setMessage("Something went wrong. Please try again.");
+      if (response.data.success) {
+        setLinkSent(true);
+        setError("");
+      } else {
+        setError(response.data.message);
+      }
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
     }
   };
 
   return (
-    <div className="flex flex-col items-center mt-10">
-      <h2 className="text-2xl font-bold mb-4">Reset Password</h2>
-      <form onSubmit={handleSubmit} className="w-full max-w-sm">
-        <input
-          type="email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          className="w-full px-4 py-2 border rounded mb-4"
-        />
-        <input
-          type="text"
-          placeholder="Enter OTP"
-          value={otp}
-          onChange={(e) => setOtp(e.target.value)}
-          required
-          className="w-full px-4 py-2 border rounded mb-4"
-        />
-        <input
-          type="password"
-          placeholder="Enter new password"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-          required
-          className="w-full px-4 py-2 border rounded mb-4"
-        />
-        <button
-          type="submit"
-          className="w-full bg-black text-white py-2 rounded"
-        >
-          Reset Password
-        </button>
-      </form>
-      {message && <p className="mt-4">{message}</p>}
+    <div className="flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-gray-800">
+      <h1 className="text-3xl mb-4">Reset Password</h1>
+      {!linkSent ? (
+        <>
+          <p>Enter your registered email.</p>
+          <form onSubmit={handleSubmit} className="w-full">
+            <div className="flex flex-col gap-4">
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="border px-4 py-2 rounded"
+                required
+              />
+              <button className="bg-black text-white px-4 py-2 rounded">
+                Send Reset Link
+              </button>
+            </div>
+          </form>
+          {error && <p className="text-red-500 mt-2">{error}</p>}
+        </>
+      ) : (
+        <p className="text-green-500">
+          A reset link has been sent to your email. Please check your inbox.
+        </p>
+      )}
     </div>
   );
 };
