@@ -66,7 +66,4 @@ authRouter.post("/reset-password", resetPassword);
 });*/
 }
 
-router.post("/send-reset-link", sendResetLink);
-router.post("/reset-password", resetPassword);
-
 export default authRouter;
