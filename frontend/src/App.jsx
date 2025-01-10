@@ -47,7 +47,6 @@ const App = () => {
         <Route path="/refundpolicy" element={<RefundPolicy />} />
         <Route path="/shippingpolicy" element={<ShippingPolicy />} />
         <Route path="/profilepage" element={<ProfilePage />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
       <Footer />
     </div>
