@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 const PlaceOrder = () => {
   const [method, setMethod] = useState("cod");
   const {
-    isLoggedIn,
+    isLoggedOut,
     navigate,
     backendUrl,
     token,
@@ -149,7 +149,7 @@ const PlaceOrder = () => {
 
   const handlePlaceOrder = (event) => {
     event.preventDefault();
-    if (!isLoggedIn) {
+    if (!isLoggedOut) {
       toast.warning("Please login first to place your order!", {
         position: "top-center",
         onClose: () => navigate("/login"),

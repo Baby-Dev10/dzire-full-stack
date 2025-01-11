@@ -110,22 +110,6 @@ const Collection = () => {
               />{" "}
               UNISEX
             </p>
-            <p className="flex gap-2">
-              <input
-                className="w-3"
-                type="checkbox"
-                value={"Women"}
-                onChange={toggleCategory}
-              />{" "}
-            </p>
-            <p className="flex gap-2">
-              <input
-                className="w-3"
-                type="checkbox"
-                value={"Kids"}
-                onChange={toggleCategory}
-              />{" "}
-            </p>
           </div>
         </div>
         {/* SubCategory Filter */}
@@ -153,14 +137,6 @@ const Collection = () => {
                 onChange={toggleSubCategory}
               />{" "}
               Bottomwear
-            </p>
-            <p className="flex gap-2">
-              <input
-                className="w-3"
-                type="checkbox"
-                value={"Winterwear"}
-                onChange={toggleSubCategory}
-              />{" "}
             </p>
           </div>
         </div>
