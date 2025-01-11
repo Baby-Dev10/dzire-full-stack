@@ -112,8 +112,8 @@ const Product = () => {
           </div>
           <button
             onClick={() => {
-              addToCart(productData._id, size);
               toast.success("Product added to cart");
+              addToCart(productData._id, size);
             }}
             className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700"
           >
