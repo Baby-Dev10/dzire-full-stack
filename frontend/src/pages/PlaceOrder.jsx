@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 const PlaceOrder = () => {
   const [method, setMethod] = useState("cod");
   const {
-    isLoggedOut,
+    isLoggedIn,
     navigate,
     backendUrl,
     token,
@@ -149,7 +149,7 @@ const PlaceOrder = () => {
 
   const handlePlaceOrder = (event) => {
     event.preventDefault();
-    if (!isLoggedOut) {
+    if (!isLoggedIn) {
       toast.warning("Please login first to place your order!", {
         position: "top-center",
         onClose: () => navigate("/login"),
@@ -158,7 +158,7 @@ const PlaceOrder = () => {
     }
 
     // Proceed with order placement logic (e.g., `onSubmitHandler`)
-    console.log("Placing order...");
+    onSubmitHandler(event);
   };
 
   return (
