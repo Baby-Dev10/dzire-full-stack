@@ -3,6 +3,7 @@ import { ShopContext } from "../context/ShopContext";
 import Title from "../components/Title";
 import { assets } from "../assets/assets";
 import CartTotal from "../components/CartTotal";
+import { toast } from "react-toastify";
 
 const Cart = () => {
   const { products, currency, cartItems, updateQuantity, navigate } =
@@ -122,7 +123,6 @@ const Cart = () => {
                   toast.error(
                     "Your cart is empty! Add some products to proceed."
                   );
-                  navigate("/");
                 } else {
                   navigate("/place-order");
                 }
