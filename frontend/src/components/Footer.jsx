@@ -60,7 +60,7 @@ const Footer = () => {
                 href="mailto:Contact@thedzire.com"
                 className="text-black hover:text-blue-500"
               >
-                Contact@thedzire.com
+                contact@thedzire.com
               </a>
             </li>
           </ul>

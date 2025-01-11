@@ -17,9 +17,10 @@ const Contact = () => {
           alt=""
         />
         <div className="flex flex-col justify-center items-start gap-6">
-          <p className="font-semibold text-xl text-gray-600">Our Store</p>
+          <p className="font-semibold text-xl text-gray-600">Manifacturing</p>
           <p className=" text-gray-500">
-            Rahul ka ghr ka address <br /> Airoli, IND
+            Kalwa 400605 <br />
+            Thane, IND
           </p>
           <p className=" text-gray-500">
             <a

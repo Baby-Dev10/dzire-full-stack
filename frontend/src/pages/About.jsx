@@ -21,23 +21,11 @@ const About = () => {
         />
         <div className="flex flex-col justify-center gap-6 md:w-2/4 text-gray-600">
           <p>
-            We believe that fashion should be timeless, versatile, and
-            inclusive. Our mission is to craft clothing that transcends seasons,
-            trends, and individual styles, making every piece a staple in your
-            wardrobe. For Everyone, We design with you in mind, creating
-            garments that cater to all tastes, ages, and preferences. Our
-            vibrant color palette ensures there's something for everyone. Your
-            Vision, Our Craftsmanship What sets us apart is our commitment to
-            customization. We work closely with you to tailor each piece to your
-            unique needs, ensuring a perfect fit that reflects your personality.
-            Your Perspective, Our Priority Our customers are at the heart of
-            everything we do. We listen to your feedback, understand your
-            desires, and strive to exceed your expectations.
-          </p>
-          <p>
-            Join the Movement Experience the art of personalized fashion with
-            dzirə. Explore our collection today and discover clothing that's
-            truly MADE FOR YOU.
+            At THE DZIRE, we believe that great style begins with exceptional
+            quality. We specialize in creating premium t-shirts that combine
+            comfort, and durability. Each piece is thoughtfully crafted with the
+            finest fabrics, handpicked to ensure a soft, breathable feel against
+            the skin while maintaining a long- lasting quality.
           </p>
           <b className="text-gray-800">Our Mission</b>
           <p>
