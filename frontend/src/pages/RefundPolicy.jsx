@@ -64,7 +64,7 @@ const RefundPolicy = () => {
           before your refund is officially posted. Next contact your bank. There
           is often some processing time before a refund is posted. If you’ve
           done all of this and you still have not received your refund yet,
-          please contact us at [___Company Contact Email___].
+          please contact us at contact@thedzire.com.
         </p>
         <ul className="text-justify flex text-s md:w-1/2 md:px-2 py-4 mx-auto w-full px-0 font-medium">
           Sale items (if applicable)
@@ -78,9 +78,9 @@ const RefundPolicy = () => {
         </p>
         <p className="text-justify flex text-s md:w-1/2 md:px-2 py-4 mx-auto w-full px-0 font-medium">
           We only replace items if they are defective or damaged. If you need to
-          exchange it for the same item, send us an email at [___Company Contact
-          Email___] and send your item to: 622 Manglam Electronic Market Jaipur
-          Rajasthan India 302001.
+          exchange it for the same item, send us an email at
+          contact@thedzire.com and send your item to: 622 Manglam Electronic
+          Market Jaipur Rajasthan India 302001.
         </p>
         <p className="text-justify flex text-s md:w-1/2 md:px-2 py-4 mx-auto w-full px-0 font-medium">
           Gifts

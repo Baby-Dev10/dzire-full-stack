@@ -13,12 +13,11 @@ const TermsConditions = () => {
         OVERVIEW
       </h2>
       <p className="text-justify flex text-s md:w-1/2 md:px-2  py-4 mx-auto w-full px-0">
-        This website is operated by [___Company Name___]. Throughout the site,
-        the terms “we”, “us” and “our” refer to [___Company Name___].
-        [___Company Name___] offers this website, including all information,
-        tools and services available from this site to you, the user,
-        conditioned upon your acceptance of all terms, conditions, policies and
-        notices stated here.
+        This website is operated by THE DZIRE. Throughout the site, the terms
+        “we”, “us” and “our” refer to THE DZIRE. THE DZIRE offers this website,
+        including all information, tools and services available from this site
+        to you, the user, conditioned upon your acceptance of all terms,
+        conditions, policies and notices stated here.
       </p>
       <p className="text-justify flex text-s md:w-1/2 md:px-2  py-4 mx-auto w-full px-0">
         By visiting our site and/ or purchasing something from us, you engage in

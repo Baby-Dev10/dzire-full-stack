@@ -49,8 +49,8 @@ const PrivacyandPolicy = () => {
       <p className="text-justify flex text-s md:w-1/2 md:px-2  py-4 mx-auto w-full px-0">
         If after you opt-in, you change your mind, you may withdraw your consent
         for us to contact you, for the continued collection, use or disclosure
-        of your information, at anytime, by contacting us at [___Company Contact
-        Email___] or mailing us at: [___Company Office Address___]
+        of your information, at anytime, by contacting us or mailing us at
+        contact@thedzire.com
       </p>
       <h3 className="text-justify flex text-s md:w-1/2 md:px-2  py-4 mx-auto w-full px-0">
         SECTION 3 - DISCLOSURE
@@ -145,17 +145,9 @@ const PrivacyandPolicy = () => {
       <p className="text-justify flex text-s md:w-1/2 md:px-2  py-4 mx-auto w-full px-0">
         If you would like to: access, correct, amend or delete any personal
         information we have about you, register a complaint, or simply want more
-        information contact our Privacy Compliance Officer at [___Company
-        Contact Email___] or by mail at [___Company Office Address___]
+        information contact our Privacy Compliance Officer at
+        contact@thedzire.com
       </p>
-      <p className="text-justify flex text-s md:w-1/2 md:px-2  py-4 mx-auto w-full px-0"></p>
-      <p className="text-justify flex text-s md:w-1/2 md:px-2  py-4 mx-auto w-full px-0"></p>
-      <p className="text-justify flex text-s md:w-1/2 md:px-2  py-4 mx-auto w-full px-0"></p>
-      <p className="text-justify flex text-s md:w-1/2 md:px-2  py-4 mx-auto w-full px-0"></p>
-      <p className="text-justify flex text-s md:w-1/2 md:px-2  py-4 mx-auto w-full px-0"></p>
-      <p className="text-justify flex text-s md:w-1/2 md:px-2  py-4 mx-auto w-full px-0"></p>
-      <p className="text-justify flex text-s md:w-1/2 md:px-2  py-4 mx-auto w-full px-0"></p>
-      <p className="text-justify flex text-s md:w-1/2 md:px-2  py-4 mx-auto w-full px-0"></p>
     </div>
   );
 };
