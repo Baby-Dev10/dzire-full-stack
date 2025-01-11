@@ -78,7 +78,7 @@ const Add = ({ token }) => {
         <div className="flex gap-2">
           <label htmlFor="image1">
             <img
-              className="w-19"
+              className="w-16"
               src={!image1 ? assets.upload_area : URL.createObjectURL(image1)}
               alt=""
             />
@@ -91,7 +91,7 @@ const Add = ({ token }) => {
           </label>
           <label htmlFor="image2">
             <img
-              className="w-19"
+              className="w-16"
               src={!image2 ? assets.upload_area : URL.createObjectURL(image2)}
               alt=""
             />
@@ -104,7 +104,7 @@ const Add = ({ token }) => {
           </label>
           <label htmlFor="image3">
             <img
-              className="w-19"
+              className="w-16"
               src={!image3 ? assets.upload_area : URL.createObjectURL(image3)}
               alt=""
             />
@@ -117,7 +117,7 @@ const Add = ({ token }) => {
           </label>
           <label htmlFor="image4">
             <img
-              className="w-19"
+              className="w-16"
               src={!image4 ? assets.upload_area : URL.createObjectURL(image4)}
               alt=""
             />
@@ -130,7 +130,7 @@ const Add = ({ token }) => {
           </label>
           <label htmlFor="image5">
             <img
-              className="w-19"
+              className="w-16"
               src={!image5 ? assets.upload_area : URL.createObjectURL(image5)}
               alt=""
             />
@@ -143,7 +143,7 @@ const Add = ({ token }) => {
           </label>
           <label htmlFor="image6">
             <img
-              className="w-19"
+              className="w-16"
               src={!image6 ? assets.upload_area : URL.createObjectURL(image6)}
               alt=""
             />
