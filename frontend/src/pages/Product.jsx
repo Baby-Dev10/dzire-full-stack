@@ -112,8 +112,12 @@ const Product = () => {
           </div>
           <button
             onClick={() => {
-              addToCart(productData._id, size);
-              toast.success("Product added to cart!");
+              if (!size) {
+                toast.error("Please select a size before adding to the cart!");
+              } else {
+                addToCart(productData._id, size);
+                toast.success("Product added to cart!");
+              }
             }}
             className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700"
           >
