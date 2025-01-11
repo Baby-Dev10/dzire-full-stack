@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import Title from "../components/Title";
 import CartTotal from "../components/CartTotal";
+//import { assets } from "../assets/assets";
 import { ShopContext } from "../context/ShopContext";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -94,6 +95,7 @@ const PlaceOrder = () => {
       };
 
       switch (method) {
+        // API Calls for COD
         case "cod":
           const response = await axios.post(
             backendUrl + "/api/order/place",
@@ -108,6 +110,22 @@ const PlaceOrder = () => {
           }
           break;
 
+          {
+            /*case "stripe":
+          const responseStripe = await axios.post(
+            backendUrl + "/api/order/stripe",
+            orderData,
+            { headers: { token } }
+          );
+          if (responseStripe.data.success) {
+            const { session_url } = responseStripe.data;
+            window.location.replace(session_url);
+          } else {
+            toast.error(responseStripe.data.message);
+          }
+          break;*/
+          }
+
         case "razorpay":
           const responseRazorpay = await axios.post(
             backendUrl + "/api/order/razorpay",
@@ -117,6 +135,7 @@ const PlaceOrder = () => {
           if (responseRazorpay.data.success) {
             initPay(responseRazorpay.data.order);
           }
+
           break;
 
         default:
@@ -137,7 +156,9 @@ const PlaceOrder = () => {
       });
       return;
     }
-    onSubmitHandler(event); // Call submit handler directly when logged in
+
+    // Proceed with order placement logic (e.g., `onSubmitHandler`)
+    onSubmitHandler(event);
   };
 
   return (
@@ -258,6 +279,7 @@ const PlaceOrder = () => {
                 }`}
               ></p>
               <p className="text-gray-500 text-sm font-medium mx-4">PREPAID</p>
+              {/*<img className="h-5 mx-4" src={assets.razorpay_logo} alt="" />*/}
             </div>
             <div
               onClick={() => setMethod("cod")}
