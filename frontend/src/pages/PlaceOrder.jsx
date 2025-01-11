@@ -147,6 +147,20 @@ const PlaceOrder = () => {
     }
   };
 
+  const handlePlaceOrder = (event) => {
+    event.preventDefault();
+    if (!isLoggedIn) {
+      toast.warning("Please login first to place your order!", {
+        position: "top-center",
+        onClose: () => navigate("/login"),
+      });
+      return;
+    }
+
+    // Proceed with order placement logic (e.g., `onSubmitHandler`)
+    onSubmitHandler(event);
+  };
+
   return (
     <form
       onSubmit={onSubmitHandler}
