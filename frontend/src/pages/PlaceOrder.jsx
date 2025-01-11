@@ -1,10 +1,27 @@
 import React, { useContext, useState } from "react";
 import Title from "../components/Title";
 import CartTotal from "../components/CartTotal";
-//import { assets } from "../assets/assets";
 import { ShopContext } from "../context/ShopContext";
 import axios from "axios";
 import { toast } from "react-toastify";
+
+const countryStateCityData = {
+  UnitedStates: {
+    California: ["Los Angeles", "San Francisco", "San Diego"],
+    Texas: ["Houston", "Austin", "Dallas"],
+    Florida: ["Miami", "Orlando", "Tampa"],
+  },
+  India: {
+    Maharashtra: ["Mumbai", "Pune", "Nagpur"],
+    Karnataka: ["Bengaluru", "Mysuru", "Mangaluru"],
+    Delhi: ["New Delhi", "Old Delhi"],
+  },
+  Canada: {
+    Ontario: ["Toronto", "Ottawa", "Hamilton"],
+    Quebec: ["Montreal", "Quebec City"],
+    Alberta: ["Calgary", "Edmonton"],
+  },
+};
 
 const PlaceOrder = () => {
   const [method, setMethod] = useState("cod");
@@ -19,6 +36,7 @@ const PlaceOrder = () => {
     delivery_fee,
     products,
   } = useContext(ShopContext);
+
   const [formData, setFormData] = useState({
     FirstName: "",
     LastName: "",
@@ -26,44 +44,29 @@ const PlaceOrder = () => {
     Street: "",
     City: "",
     State: "",
-    Pincode: "",
     Country: "",
     Phone: "",
   });
 
-  const onChangeHandler = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setFormData((data) => ({ ...data, [name]: value }));
-  };
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
 
-  const initPay = (order) => {
-    const options = {
-      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-      amount: order.amount,
-      currency: order.currency,
-      name: "Order Payment",
-      description: "Order Payment",
-      order_id: order.id,
-      receipt: order.receipt,
-      handler: async (response) => {
-        try {
-          const { data } = await axios.post(
-            backendUrl + "/api/order/verifyRazorpay",
-            response,
-            { headers: { token } }
-          );
-          if (data.success) {
-            navigate("/orders");
-            setCartItems({});
-          }
-        } catch (error) {
-          toast.error("Payment verification failed. Please try again.");
-        }
-      },
-    };
-    const rzp = new window.Razorpay(options);
-    rzp.open();
+  const onChangeHandler = (event) => {
+    const { name, value } = event.target;
+
+    if (name === "Country") {
+      const selectedStates = Object.keys(countryStateCityData[value] || {});
+      setStates(selectedStates);
+      setCities([]);
+      setFormData((data) => ({ ...data, State: "", City: "", [name]: value }));
+    } else if (name === "State") {
+      const selectedCities =
+        countryStateCityData[formData.Country]?.[value] || [];
+      setCities(selectedCities);
+      setFormData((data) => ({ ...data, City: "", [name]: value }));
+    } else {
+      setFormData((data) => ({ ...data, [name]: value }));
+    }
   };
 
   const onSubmitHandler = async (event) => {
@@ -78,26 +81,12 @@ const PlaceOrder = () => {
     }
 
     try {
-      let orderItems = [];
-
-      for (const items in cartItems) {
-        for (const item in cartItems[items]) {
-          if (cartItems[items][item] > 0) {
-            const itemInfo = structuredClone(
-              products.find((product) => product._id === items)
-            );
-            if (itemInfo) {
-              itemInfo.size = item;
-              itemInfo.quantity = cartItems[items][item];
-              orderItems.push(itemInfo);
-            }
-          }
-        }
-      }
-
       const orderData = {
         address: formData,
-        items: orderItems,
+        items: Object.entries(cartItems).map(([id, sizes]) => ({
+          ...products.find((product) => product._id === id),
+          sizes,
+        })),
         amount: getCartAmount() + delivery_fee,
       };
 
@@ -114,15 +103,15 @@ const PlaceOrder = () => {
           toast.error(response.data.message);
         }
       } else if (method === "razorpay") {
-        const responseRazorpay = await axios.post(
+        const response = await axios.post(
           backendUrl + "/api/order/razorpay",
           orderData,
           { headers: { token } }
         );
-        if (responseRazorpay.data.success) {
-          initPay(responseRazorpay.data.order);
+        if (response.data.success) {
+          initPay(response.data.order);
         } else {
-          toast.error(responseRazorpay.data.message);
+          toast.error(response.data.message);
         }
       }
     } catch (error) {
@@ -179,44 +168,57 @@ const PlaceOrder = () => {
           placeholder="Street"
         />
         <div className="flex gap-3">
-          <input
-            required
-            onChange={onChangeHandler}
-            name="City"
-            value={formData.City}
-            className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
-            type="text"
-            placeholder="City"
-          />
-          <input
-            onChange={onChangeHandler}
-            name="State"
-            value={formData.State}
-            className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
-            type="text"
-            placeholder="State"
-          />
-        </div>
-        <div className="flex gap-3">
-          <input
-            required
-            onChange={onChangeHandler}
-            name="Pincode"
-            value={formData.Pincode}
-            className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
-            type="number"
-            placeholder="Pincode"
-          />
-          <input
+          <select
             required
             onChange={onChangeHandler}
             name="Country"
             value={formData.Country}
             className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
-            type="text"
-            placeholder="Country"
-          />
+          >
+            <option value="" disabled>
+              Select Country
+            </option>
+            {Object.keys(countryStateCityData).map((country) => (
+              <option key={country} value={country}>
+                {country}
+              </option>
+            ))}
+          </select>
+          <select
+            required
+            onChange={onChangeHandler}
+            name="State"
+            value={formData.State}
+            className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
+            disabled={!states.length}
+          >
+            <option value="" disabled>
+              Select State
+            </option>
+            {states.map((state) => (
+              <option key={state} value={state}>
+                {state}
+              </option>
+            ))}
+          </select>
         </div>
+        <select
+          required
+          onChange={onChangeHandler}
+          name="City"
+          value={formData.City}
+          className="border border-gray-300 rounded py-1.5 px-3.5 w-full"
+          disabled={!cities.length}
+        >
+          <option value="" disabled>
+            Select City
+          </option>
+          {cities.map((city) => (
+            <option key={city} value={city}>
+              {city}
+            </option>
+          ))}
+        </select>
         <input
           required
           onChange={onChangeHandler}
@@ -230,9 +232,7 @@ const PlaceOrder = () => {
 
       {/* Right Side */}
       <div className="mt-8">
-        <div className="mt-8 min-w-80">
-          <CartTotal />
-        </div>
+        <CartTotal />
         <div className="mt-12">
           <Title text1={"PAYMENT"} text2={"METHOD"} />
           <div className="flex gap-3 flex-col lg:flex-row">
