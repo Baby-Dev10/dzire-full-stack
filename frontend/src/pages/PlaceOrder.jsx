@@ -26,7 +26,6 @@ const countryStateCityData = {
 const PlaceOrder = () => {
   const [method, setMethod] = useState("cod");
   const {
-    isLoggedIn,
     navigate,
     backendUrl,
     token,
@@ -72,10 +71,11 @@ const PlaceOrder = () => {
   const onSubmitHandler = async (event) => {
     event.preventDefault();
 
-    if (!isLoggedIn) {
+    if (!token) {
       toast.warning("Please login first to place your order!", {
         position: "top-center",
         onClose: () => navigate("/login"),
+        autoClose: 3000,
       });
       return;
     }
