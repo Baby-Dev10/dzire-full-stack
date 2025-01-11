@@ -75,7 +75,7 @@ const PlaceOrder = () => {
       toast.warning("Please login first to place your order!", {
         position: "top-center",
         onClose: () => navigate("/login"),
-        autoClose: 3000,
+        autoClose: 2000,
       });
       return;
     }
