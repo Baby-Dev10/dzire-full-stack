@@ -19,8 +19,7 @@ const Contact = () => {
         <div className="flex flex-col justify-center items-start gap-6">
           <p className="font-semibold text-xl text-gray-600">Manufacturing</p>
           <p className=" text-gray-500">
-            Radhe Krishna Industrial Park , of Village: Pimpalaner, Tehsil
-            Bhivandi
+            Radhe Krishna Industrial Park , of Village: Pimpalaner,
             <br />
             Tehsil Bhivandi 421302 Thane, IND
           </p>
