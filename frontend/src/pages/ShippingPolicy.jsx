@@ -15,9 +15,9 @@ const ShippingPolicy = () => {
         checkout.{" "}
       </p>
       <p className="text-justify flex text-s md:w-1/2 md:px-2  py-4 mx-auto w-full px-0">
-        All orders are processed within X to X business days (excluding weekends
-        and holidays) after receiving your order confirmation email. You will
-        receive another notification when your order has shipped.{" "}
+        All orders are processed within 5 to 10 business days (excluding
+        weekends and holidays) after receiving your order confirmation email.
+        You will receive another notification when your order has shipped.{" "}
       </p>
       <p className="text-justify flex text-s md:w-1/2 md:px-2  py-4 mx-auto w-full px-0 font-medium">
         Include any other pertinent information towards the beginning, such as

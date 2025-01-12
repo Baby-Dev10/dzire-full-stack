@@ -79,8 +79,8 @@ const RefundPolicy = () => {
         <p className="text-justify flex text-s md:w-1/2 md:px-2 py-4 mx-auto w-full px-0 font-medium">
           We only replace items if they are defective or damaged. If you need to
           exchange it for the same item, send us an email at
-          contact@thedzire.com and send your item to: 622 Manglam Electronic
-          Market Jaipur Rajasthan India 302001.
+          contact@thedzire.com and send your item to: Radha krishna Mitra Mandal
+          room no .c33 Bhaskar Nagar kalwa (E) Thane.
         </p>
         <p className="text-justify flex text-s md:w-1/2 md:px-2 py-4 mx-auto w-full px-0 font-medium">
           Gifts
@@ -100,13 +100,13 @@ const RefundPolicy = () => {
           Shipping
         </p>
         <p className="text-justify flex text-s md:w-1/2 md:px-2 py-4 mx-auto w-full px-0">
-          To return your product, you should mail your product to: 622 Manglam
-          Electronic Market Jaipur Rajasthan India 302001. You will be
+          To return your product, you should mail your product to: Radha krishna
+          Mitra Mandal room no .c33 Bhaskar Nagar kalwa (E) Thane. You will be
           responsible for paying for your own shipping costs for returning your
           item. Shipping costs are non-refundable. If you receive a refund, the
           cost of return shipping will be deducted from your refund. Depending
           on where you live, the time it may take for your exchanged product to
-          reach you, may vary. If you are shipping an item over $75, you should
+          reach you, may vary. If you are shipping an item over ₹ 80, you should
           consider using a trackable shipping service or purchasing shipping
           insurance. We don't guarantee that we will receive your returned item.
         </p>

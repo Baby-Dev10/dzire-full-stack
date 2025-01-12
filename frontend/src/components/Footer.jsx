@@ -11,10 +11,12 @@ const Footer = () => {
             <img className="mb-5 w-32" src={assets.logo} alt="" />
           </Link>
           <p className="w-full md:w-2/3 text-black">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book.
+            "Two friends, united by a passion for premium quality and ultimate
+            comfort, founded our premium clothing brand with one mission: to
+            create the perfect blend of style and comfort. Our products are
+            crafted with care, using only the finest materials to ensure every
+            wear feels as good as it looks. Experience the perfect fit and
+            lasting quality with every piece."
           </p>
         </div>
 

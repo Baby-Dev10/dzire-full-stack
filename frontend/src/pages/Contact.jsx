@@ -19,7 +19,8 @@ const Contact = () => {
         <div className="flex flex-col justify-center items-start gap-6">
           <p className="font-semibold text-xl text-gray-600">Manufacturing</p>
           <p className=" text-gray-500">
-            Kalwa 400605 <br />
+            Radha Krishna Mitra Mandal Room no. C33 Bhaskar Nagar Kalwa (E){" "}
+            <br />
             Thane, IND
           </p>
           <p className=" text-gray-500">
