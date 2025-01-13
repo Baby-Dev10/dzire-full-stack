@@ -10,7 +10,7 @@ const RefundPolicy = () => {
         Refund Policy
       </h1>
       <p className="text-justify flex text-s md:w-1/2 md:px-2  py-4 mx-auto w-full px-0">
-        Our policy lasts 30 days. If 30 days have gone by since your purchase,
+        Our policy lasts 7 days. If 7 days have gone by since your purchase,
         unfortunately we can't offer you a refund or exchange. To be eligible
         for a return, your item must be unused and in the same condition that
         you received it. It must also be in the original packaging. Several
@@ -64,7 +64,7 @@ const RefundPolicy = () => {
           received a refund yet, first check your bank account again. Then
           contact your credit card company, it may take some time before your
           refund is officially posted. Next contact your bank. There is often
-          some processing time before a refund is posted. If you’ve done all of
+          some processing time before a refund is posted. If you've done all of
           this and you still have not received your refund yet, please contact
           us at contact@thedzire.com.
         </p>
