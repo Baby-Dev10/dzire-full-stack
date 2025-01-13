@@ -10,8 +10,7 @@ const ResetPassword = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/user/send-reset-link", // Updated API endpoint
-        { email }
+        `http://localhost:4000/api/user/send-reset-link?email=${email}`
       );
       if (response.data.success) {
         setLinkSent(true);
