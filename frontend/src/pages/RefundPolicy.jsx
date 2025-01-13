@@ -59,12 +59,14 @@ const RefundPolicy = () => {
           Late or missing refunds (if applicable)
         </ul>
         <p className="text-justify flex text-s md:w-1/2 md:px-2 py-4 mx-auto w-full px-0 font-medium">
-          If you haven't received a refund yet, first check your bank account
-          again. Then contact your credit card company, it may take some time
-          before your refund is officially posted. Next contact your bank. There
-          is often some processing time before a refund is posted. If you’ve
-          done all of this and you still have not received your refund yet,
-          please contact us at contact@thedzire.com.
+          The refund will be processed into your bank account or linked account
+          and esstimated to arrive within 5-7 working days. If you haven't
+          received a refund yet, first check your bank account again. Then
+          contact your credit card company, it may take some time before your
+          refund is officially posted. Next contact your bank. There is often
+          some processing time before a refund is posted. If you’ve done all of
+          this and you still have not received your refund yet, please contact
+          us at contact@thedzire.com.
         </p>
         <ul className="text-justify flex text-s md:w-1/2 md:px-2 py-4 mx-auto w-full px-0 font-medium">
           Sale items (if applicable)

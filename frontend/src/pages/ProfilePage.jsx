@@ -1,46 +1,94 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const ProfilePage = () => {
-  const [user, setUser] = useState({
-    name: "John Doe",
-    email: "johndoe@example.com",
-    phone: "+1 123 456 7890",
-  });
-
-  const [addresses, setAddresses] = useState([
-    {
-      id: 1,
-      type: "Home",
-      address: "123 Main Street, Cityville, CA, 90210",
-    },
-    {
-      id: 2,
-      type: "Work",
-      address: "456 Office Park, Suite 300, TechTown, NY, 10001",
-    },
-  ]);
-
-  const [orderHistory, setOrderHistory] = useState([
-    { orderId: 123456, date: "Dec 10, 2025", status: "Delivered" },
-    { orderId: 654321, date: "Nov 15, 2025", status: "Shipped" },
-  ]);
-
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [addresses, setAddresses] = useState([]);
+  const [orderHistory, setOrderHistory] = useState([]);
   const [newAddress, setNewAddress] = useState("");
 
-  const handleAddAddress = () => {
-    if (newAddress.trim() === "") return;
-    const newAddressObj = {
-      id: addresses.length + 1,
-      type: "New Address",
-      address: newAddress,
+  const token = localStorage.getItem("token");
+  const backendUrl = "http://localhost:4000"; // Replace with your backend URL
+
+  useEffect(() => {
+    if (!token) {
+      toast.error("Please log in to access your profile.");
+      navigate("/login");
+      return;
+    }
+
+    const fetchProfileData = async () => {
+      try {
+        const response = await axios.get(`${backendUrl}/api/user/profile`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (response.data.success) {
+          setUser(response.data.user);
+          setAddresses(response.data.user.addresses);
+          setOrderHistory(response.data.user.orderHistory);
+        } else {
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        console.error("Error fetching profile data:", error);
+        toast.error("Failed to load profile data.");
+      }
     };
-    setAddresses([...addresses, newAddressObj]);
-    setNewAddress("");
+
+    fetchProfileData();
+  }, [token, navigate, backendUrl]);
+
+  const handleAddAddress = async () => {
+    if (!newAddress.trim()) return;
+
+    try {
+      const response = await axios.post(
+        `${backendUrl}/api/user/address`,
+        { address: newAddress },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      if (response.data.success) {
+        setAddresses([...addresses, response.data.address]);
+        setNewAddress("");
+        toast.success("Address added successfully.");
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.error("Error adding address:", error);
+      toast.error("Failed to add address.");
+    }
   };
 
-  const handleDeleteAddress = (id) => {
-    setAddresses(addresses.filter((addr) => addr.id !== id));
+  const handleDeleteAddress = async (id) => {
+    try {
+      const response = await axios.delete(
+        `${backendUrl}/api/user/address/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      if (response.data.success) {
+        setAddresses(addresses.filter((addr) => addr._id !== id));
+        toast.success("Address deleted successfully.");
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.error("Error deleting address:", error);
+      toast.error("Failed to delete address.");
+    }
   };
+
+  if (!user) return null; // Show nothing while loading user data
 
   return (
     <div className="p-5 sm:p-10 bg-gray-100 min-h-screen">
@@ -57,9 +105,6 @@ const ProfilePage = () => {
         <p>
           <strong>Email:</strong> {user.email}
         </p>
-        <p>
-          <strong>Phone:</strong> {user.phone}
-        </p>
       </div>
 
       {/* Saved Addresses Section */}
@@ -69,20 +114,15 @@ const ProfilePage = () => {
         </h2>
         {addresses.map((addr) => (
           <div
-            key={addr.id}
+            key={addr._id}
             className="mb-4 p-4 border rounded-lg flex justify-between items-start"
           >
             <div>
-              <p>
-                <strong>Type:</strong> {addr.type}
-              </p>
-              <p>
-                <strong>Address:</strong> {addr.address}
-              </p>
+              <p>{addr.address}</p>
             </div>
             <button
               className="text-red-500 hover:text-red-700"
-              onClick={() => handleDeleteAddress(addr.id)}
+              onClick={() => handleDeleteAddress(addr._id)}
             >
               Delete
             </button>
@@ -113,12 +153,13 @@ const ProfilePage = () => {
         </h2>
         <ul>
           {orderHistory.map((order) => (
-            <li key={order.orderId} className="mb-4">
+            <li key={order._id} className="mb-4">
               <p>
-                <strong>Order #:</strong> {order.orderId}
+                <strong>Order #:</strong> {order._id}
               </p>
               <p>
-                <strong>Date:</strong> {order.date}
+                <strong>Date:</strong>{" "}
+                {new Date(order.date).toLocaleDateString()}
               </p>
               <p>
                 <strong>Status:</strong> {order.status}

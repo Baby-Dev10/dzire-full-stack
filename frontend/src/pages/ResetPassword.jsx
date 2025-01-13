@@ -10,7 +10,7 @@ const ResetPassword = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/user/send-reset-link",
+        "http://localhost:4000/api/user/send-reset-link", // Updated API endpoint
         { email }
       );
       if (response.data.success) {
@@ -20,7 +20,9 @@ const ResetPassword = () => {
         setError(response.data.message);
       }
     } catch (err) {
-      setError("Something went wrong. Please try again.");
+      setError(
+        err.response?.data?.message || "Something went wrong. Please try again."
+      );
     }
   };
 
@@ -29,7 +31,7 @@ const ResetPassword = () => {
       <h1 className="text-3xl mb-4">Reset Password</h1>
       {!linkSent ? (
         <>
-          <p>Enter your registered email.</p>
+          <p>Enter your registered email to receive a reset link.</p>
           <form onSubmit={handleSubmit} className="w-full">
             <div className="flex flex-col gap-4">
               <input

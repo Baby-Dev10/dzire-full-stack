@@ -3,20 +3,28 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const ResetPasswordForm = () => {
-  const { token } = useParams();
+  const { token } = useParams(); // Extract token from URL params
   const [newPassword, setNewPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/auth/reset-password",
+        "http://localhost:4000/api/user/reset-password", // Updated API endpoint
         { token, newPassword }
       );
-      setMessage(response.data.message);
+      if (response.data.success) {
+        setMessage(response.data.message);
+        setError("");
+      } else {
+        setError(response.data.message);
+      }
     } catch (err) {
-      setMessage("Something went wrong. Please try again.");
+      setError(
+        err.response?.data?.message || "Something went wrong. Please try again."
+      );
     }
   };
 
@@ -38,7 +46,8 @@ const ResetPasswordForm = () => {
           </button>
         </div>
       </form>
-      {message && <p>{message}</p>}
+      {error && <p className="text-red-500 mt-2">{error}</p>}
+      {message && <p className="text-green-500 mt-2">{message}</p>}
     </div>
   );
 };
