@@ -64,12 +64,11 @@ connectDB();
 connectCloudinary();
 dotenv.config();
 const theOrigin = process.env.CLIENT_URL;
-
 // middlewares
 app.use(express.json());
 app.use(cookieParser());
 app.all("*", (req, res, next) => {
-  const theOrigin = req.headers.origin;
+  const origin = req.headers.origin;
 
   res.header("Access-Control-Allow-Origin", theOrigin);
   res.setHeader("Access-Control-Allow-Credentials", "true");
