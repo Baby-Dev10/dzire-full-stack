@@ -63,11 +63,8 @@ const port = process.env.PORT || 4000;
 connectDB();
 connectCloudinary();
 dotenv.config();
-const theOrigin = [
-  process.env.CLIENT_URL,
-  "http://localhost:5173",
-  "http://localhost:5174",
-];
+const theOrigin = process.env.CLIENT_URL;
+
 // middlewares
 app.use(express.json());
 app.use(cookieParser());
