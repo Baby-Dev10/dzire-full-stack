@@ -2,7 +2,7 @@ import axios from "axios";
 
 let api = axios.create({
   withCredentials: true,
-  baseURL: process.env.BACKEND_URL,
+  baseURL: process.env.VITE_BACKEND_URL,
   headers: {
     "Content-Type": "application/json",
     xsrfCookieName: "XSRF-TOKEN",
