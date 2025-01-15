@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import api from "../utils/api";
 
 const ResetPassword = () => {
   const [email, setEmail] = useState("");
@@ -9,9 +10,7 @@ const ResetPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        `http://localhost:4000/api/user/send-reset-link?email=${email}`
-      );
+      const response = await api.post(`/api/user/send-reset-link`, { email });
       if (response.data.success) {
         setLinkSent(true);
         setError("");

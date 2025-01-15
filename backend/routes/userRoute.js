@@ -22,7 +22,7 @@ userRouter.get("/check-auth", verifyToken, checkAuth);
 userRouter.post("/logout", logout);
 
 userRouter.post("/send-reset-link", sendResetLink);
-userRouter.post("/reset-password/:token", resetPassword);
+userRouter.post("/reset-password", resetPassword);
 
 // userRouter.get("/profile", authUser, getUserProfile);
 // userRouter.get("/addresses", authUser, getAddresses);

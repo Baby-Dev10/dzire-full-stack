@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
 import axios from "axios";
+//import { api } from "../App";
 import { toast } from "react-toastify";
+import api from "../utils/api";
 
 const Login = () => {
   const [currentState, setCurrentState] = useState("Login");
@@ -15,15 +17,11 @@ const Login = () => {
     event.preventDefault();
     try {
       if (currentState === "Sign Up") {
-        const response = await axios.post(
-          backendUrl + "/api/user/signup",
-          {
-            name,
-            email,
-            password,
-          },
-          { withCredentials: true }
-        );
+        const response = await api.post("/api/user/signup", {
+          name,
+          email,
+          password,
+        });
         if (response.data.success) {
           setToken(response.data.token);
           localStorage.setItem("token", response.data.token);
@@ -31,10 +29,14 @@ const Login = () => {
           toast.error(response.data.message);
         }
       } else {
-        const response = await axios.post(backendUrl + "/api/user/login", {
-          email,
-          password,
-        });
+        //   const response = await axios.post(backendUrl + "/api/user/login", {
+        //     email,
+        //     password,
+        //   },
+        // {withCredentials: true},
+        // );
+        const response = await api.post("/api/user/login", { email, password });
+        console.log(email, password);
         if (response.data.success) {
           setToken(response.data.token);
           localStorage.setItem("token", response.data.token);
@@ -96,7 +98,7 @@ const Login = () => {
           onClick={() => navigate("/reset-password")}
           className=" cursor-pointer"
         >
-          Forgot your password?
+          Forgot password?
         </p>
         {currentState === "Login" ? (
           <p

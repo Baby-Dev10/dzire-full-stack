@@ -4,11 +4,12 @@ import { ShopContext } from "../context/ShopContext";
 import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-import axios from "axios";
+// import axios from "axios";
+import api from "../utils/api";
 
 const Verify = () => {
-  const { navigate, token, setCartItems, backendUrl } = useContext(ShopContext);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { navigate, token, setCartItems } = useContext(ShopContext);
+  const [searchParams] = useSearchParams();
 
   const success = searchParams.get("success");
   const orderId = searchParams.get("orderId");
@@ -19,8 +20,8 @@ const Verify = () => {
         return null;
       }
 
-      const response = await axios.post(
-        backendUrl + "/api/order/verifyrazorpay",
+      const response = await api.post(
+        "/api/order/verifyrazorpay",
         { success, orderId },
         { headers: { token } }
       );

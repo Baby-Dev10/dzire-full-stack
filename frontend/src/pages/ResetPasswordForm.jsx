@@ -1,9 +1,14 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
+import api from "../utils/api";
+// import Cookies from "js-cookie";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const ResetPasswordForm = () => {
-  const { token } = useParams(); // Extract token from URL params
+  //get token from cookies
+  const token = useParams().token;
+  const navigate = useNavigate();
+  console.log(token); // Extract token from cookies
   const [newPassword, setNewPassword] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -11,12 +16,15 @@ const ResetPasswordForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:4000/api/user/reset-password", // Updated API endpoint
+      const response = await api.post(
+        "/api/user/reset-password", // Updated API endpoint
         { token, newPassword }
       );
       if (response.data.success) {
         setMessage(response.data.message);
+        toast.success(response.data.message);
+        navigate("/login");
+
         setError("");
       } else {
         setError(response.data.message);

@@ -3,15 +3,13 @@ import Title from "../components/Title";
 import CartTotal from "../components/CartTotal";
 // import { assets } from "../assets/assets";
 import { ShopContext } from "../context/ShopContext";
-import axios from "axios";
 import { toast } from "react-toastify";
+import api from "../utils/api";
 
 const PlaceOrder = () => {
   const [method, setMethod] = useState("cod");
   const {
     navigate,
-    backendUrl,
-    token,
     cartItems,
     setCartItems,
     getCartAmount,
@@ -40,7 +38,7 @@ const PlaceOrder = () => {
     const options = {
       key: import.meta.env.VITE_RAZORPAY_KEY_ID,
       amount: order.amount,
-      currency: order.currency,
+      currency: "INR",
       name: "Order Payment",
       description: "Order Payment",
       order_id: order.id,
@@ -48,10 +46,9 @@ const PlaceOrder = () => {
       handler: async (response) => {
         console.log(response);
         try {
-          const { data } = await axios.post(
-            backendUrl + "/api/order/verifyRazorpay",
-            response,
-            { headers: { token } }
+          const { data } = await api.post(
+            "/api/order/verifyRazorpay",
+            response
           );
           if (data.success) {
             navigate("/orders");
@@ -96,11 +93,7 @@ const PlaceOrder = () => {
       switch (method) {
         // API Calls for COD
         case "cod":
-          const response = await axios.post(
-            backendUrl + "/api/order/place",
-            orderData,
-            { headers: { token } }
-          );
+          const response = await api.post("/api/order/place", orderData);
           if (response.data.success) {
             setCartItems({});
             navigate("/orders");
@@ -124,10 +117,9 @@ const PlaceOrder = () => {
         //   break;
 
         case "razorpay":
-          const responseRazorpay = await axios.post(
-            backendUrl + "/api/order/razorpay",
-            orderData,
-            { headers: { token } }
+          const responseRazorpay = await api.post(
+            "/api/order/razorpay",
+            orderData
           );
           if (responseRazorpay.data.success) {
             initPay(responseRazorpay.data.order);

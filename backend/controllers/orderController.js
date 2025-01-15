@@ -4,7 +4,7 @@ import userModel from "../models/userModel.js";
 import razorpay from "razorpay";
 
 // global variables
-const currency = " ₹ ";
+const currency = "INR";
 const deliveryCharge = 40;
 
 // gateway initialize
@@ -18,7 +18,8 @@ const razorpayInstance = new razorpay({
 // Placing orders using COD Method
 const placeOrder = async (req, res) => {
   try {
-    const { userId, items, amount, address } = req.body;
+    const { items, amount, address } = req.body;
+    const userId = req.userId;
 
     const orderData = {
       userId,
@@ -45,7 +46,8 @@ const placeOrder = async (req, res) => {
 // Placing orders using Razorpay Method
 const placeOrderRazorpay = async (req, res) => {
   try {
-    const { userId, items, amount, address } = req.body;
+    const { items, amount, address } = req.body;
+    const userId = req.userId;
 
     const orderData = {
       userId,
@@ -57,6 +59,8 @@ const placeOrderRazorpay = async (req, res) => {
       date: Date.now(),
     };
 
+    console.log(orderData);
+
     const newOrder = new orderModel(orderData);
     await newOrder.save();
 
@@ -66,7 +70,7 @@ const placeOrderRazorpay = async (req, res) => {
       receipt: newOrder._id.toString(),
     };
 
-    await razorpayInstance.orders.create(options, (error, order) => {
+    razorpayInstance.orders.create(options, (error, order) => {
       if (error) {
         console.log(error);
         return res.json({ success: false, message: error });
@@ -81,7 +85,8 @@ const placeOrderRazorpay = async (req, res) => {
 
 const verifyRazorpay = async (req, res) => {
   try {
-    const { userId, razorpay_order_id } = req.body;
+    const { razorpay_order_id } = req.body;
+    const userId = req.userId;
 
     const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id);
     if (orderInfo.status === "paid") {
@@ -111,7 +116,7 @@ const allOrders = async (req, res) => {
 // User Order Data For Forntend
 const userOrders = async (req, res) => {
   try {
-    const { userId } = req.body;
+    const userId = req.userId;
 
     const orders = await orderModel.find({ userId });
     res.json({ success: true, orders });

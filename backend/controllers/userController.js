@@ -261,6 +261,7 @@ import {
   sendPasswordResetEmail,
   sendResetSuccessEmail,
 } from "../config/emails.js";
+import jwt from "jsonwebtoken";
 
 export const signup = async (req, res) => {
   const { email, password, name } = req.body;
@@ -340,17 +341,22 @@ export const login = async (req, res) => {
     res.status(400).json({ success: false, message: error.message });
   }
 };
-
 export const logout = async (req, res) => {
-  res.clearCookie("token");
-  res.status(200).json({ success: true, message: "Logged out successfully" });
+  try {
+    res.clearCookie("token");
+    res.status(200).json({ success: true, message: "Logged out successfully" });
+  } catch (error) {
+    console.log("Error in logout ", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
 };
 
 export const sendResetLink = async (req, res) => {
   const { email } = req.body;
+  console.log("Email:", email);
   try {
     const user = await userModel.findOne({ email });
-
+    console.log("user", user);
     if (!user) {
       return res
         .status(400)
@@ -369,7 +375,7 @@ export const sendResetLink = async (req, res) => {
     // send email
     await sendPasswordResetEmail(
       user.email,
-      `${process.env.CLIENT_URL}/reset-password/${resetToken}`
+      `${process.env.CLIENT_URL}/reset-password-form/${resetToken}`
     );
 
     res.status(200).json({
@@ -384,13 +390,15 @@ export const sendResetLink = async (req, res) => {
 
 export const resetPassword = async (req, res) => {
   try {
-    const { token } = req.params;
-    const { password } = req.body;
+    // const { token } = req.params;
+    const { newPassword, token } = req.body;
 
     const user = await userModel.findOne({
       resetPasswordToken: token,
       resetPasswordExpiresAt: { $gt: Date.now() },
     });
+
+    //const resetURL = `http://localhost:5173/reset-password-form/${token}`;
 
     if (!user) {
       return res
@@ -399,14 +407,17 @@ export const resetPassword = async (req, res) => {
     }
 
     // update password
-    const hashedPassword = await bcryptjs.hash(password, 10);
+    const hashedPassword = await bcryptjs.hash(newPassword, 10);
 
     user.password = hashedPassword;
     user.resetPasswordToken = undefined;
     user.resetPasswordExpiresAt = undefined;
     await user.save();
 
-    await sendResetSuccessEmail(user.email);
+    await sendResetSuccessEmail(
+      user.email,
+      `${process.env.CLIENT_URL}/reset-password/${token}`
+    );
 
     res
       .status(200)
@@ -426,6 +437,7 @@ export const admin = async (req, res) => {
       password === process.env.ADMIN_PASSWORD
     ) {
       const token = jwt.sign(email + password, process.env.JWT_SECRET);
+      res.cookie("AdminToken", token, { httpOnly: true });
       res.json({ success: true, token });
     } else {
       res.json({ success: false, message: "Invalid credentials" });
