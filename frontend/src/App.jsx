@@ -20,7 +20,7 @@ import ResetPassword from "./pages/ResetPassword";
 import TermsConditions from "./pages/TermsConditions";
 import RefundPolicy from "./pages/RefundPolicy";
 import ShippingPolicy from "./pages/ShippingPolicy";
-import ProfilePage from "./pages/ProfilePage";
+//import ProfilePage from "./pages/ProfilePage";
 import ResetPasswordForm from "./pages/ResetPasswordForm";
 
 const App = () => {
@@ -49,7 +49,7 @@ const App = () => {
         <Route path="/termsandconditions" element={<TermsConditions />} />
         <Route path="/refundpolicy" element={<RefundPolicy />} />
         <Route path="/shippingpolicy" element={<ShippingPolicy />} />
-        <Route path="/profilepage" element={<ProfilePage />} />
+        {/* <Route path="/profilepage" element={<ProfilePage />} /> */}
       </Routes>
       <Footer />
     </div>

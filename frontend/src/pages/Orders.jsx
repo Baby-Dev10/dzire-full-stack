@@ -60,8 +60,13 @@ const Orders = () => {
                     {currency}
                     {item.price}
                   </p>
-                  <p>Quantity: {item.quantity}</p>
-                  <p>Size: {item.size}</p>
+                  <p className="text-sm mt-1">
+                    Quantity:{" "}
+                    <span className="font-medium">{item.quantity}</span>
+                  </p>
+                  <p className="text-sm mt-1">
+                    Size: <span className="font-medium">{item.size}</span>
+                  </p>
                 </div>
                 <p className="mt-1">
                   Date:{" "}
