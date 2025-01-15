@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
-    "build": "cd frontend && npm install && npm run build && cd ../admin && npm install && npm run build"
+    "build": "cd frontend && npm install && npm run build && cd ../admin && npm install && npm run build",
+    "build:run": "npm run build && npm start"
   },
   "author": "Baby",
   "license": "ISC",
