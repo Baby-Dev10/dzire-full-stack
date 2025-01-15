@@ -69,7 +69,7 @@ const theOrigin = process.env.CLIENT_URL;
 app.use(express.json());
 app.use(cookieParser());
 app.all("*", (req, res, next) => {
-  const origin = req.headers.origin;
+  const theOrigin = req.headers.origin;
 
   res.header("Access-Control-Allow-Origin", theOrigin);
   res.setHeader("Access-Control-Allow-Credentials", "true");
