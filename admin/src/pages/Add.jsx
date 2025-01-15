@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { assets } from "../assets/assets";
 import axios from "axios";
-import { backendUrl } from "../App";
+
 import { toast } from "react-toastify";
 
 const Add = ({ token }) => {
@@ -42,7 +42,7 @@ const Add = ({ token }) => {
       image6 && formData.append("image6", image6);
 
       const response = await axios.post(
-        backendUrl + "/api/product/add",
+        "/api/product/add",
         formData,
         { withCredentials: true }
       );

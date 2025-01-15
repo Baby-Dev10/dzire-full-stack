@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { backendUrl, currency } from "../App";
+import {  currency } from "../App";
 import { toast } from "react-toastify";
 
 const List = () => {
@@ -8,7 +8,7 @@ const List = () => {
 
   const fetchList = async () => {
     try {
-      const response = await axios.get(backendUrl + "/api/product/list");
+      const response = await axios.get( "/api/product/list");
       if (response.data.success) {
         setList(response.data.products.reverse());
       } else {
@@ -23,7 +23,7 @@ const List = () => {
   const removeProduct = async (id) => {
     try {
       const response = await axios.post(
-        backendUrl + "/api/product/remove",
+        "/api/product/remove",
         { id },
         { withCredentials: true }
       );
