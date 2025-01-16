@@ -22,9 +22,13 @@ import RefundPolicy from "./pages/RefundPolicy";
 import ShippingPolicy from "./pages/ShippingPolicy";
 //import ProfilePage from "./pages/ProfilePage";
 import ResetPasswordForm from "./pages/ResetPasswordForm";
-
+import SEO from "./components/Seo";
+import { HelmetProvider } from 'react-helmet-async';
 const App = () => {
   return (
+    <>
+    <HelmetProvider>
+    <SEO />
     <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
       <ToastContainer />
       <Navbar />
@@ -53,6 +57,8 @@ const App = () => {
       </Routes>
       <Footer />
     </div>
+    </HelmetProvider>
+    </>
   );
 };
 

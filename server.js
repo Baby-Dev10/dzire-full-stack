@@ -30,6 +30,49 @@ app.use(express.json());
 
 app.use(cookieParser());
 app.use(morgan("dev"));
+
+
+
+//seo bolte lala
+// Serve robots.txt
+app.get("/robots.txt", (req, res) => {
+  res.type("text/plain");
+  res.send(`User-agent: *
+Allow: /
+Sitemap: https://thedzire.com/sitemap.xml`);
+});
+
+// Serve sitemap.xml
+app.get("/sitemap.xml", (req, res) => {
+  res.header("Content-Type", "application/xml");
+  res.send(`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://thedzire.com/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://thedzire.com/collection</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thedzire.com/about</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thedzire.com/contact</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>`);
+});
+
+
+
+
 // Serve static assets for React apps
 app.use("/", express.static(path.join(rootDir, "frontend/dist")));
 app.use("/admin", express.static(path.join(rootDir, "admin/dist")));
@@ -64,6 +107,49 @@ app.use("/api/order", orderRouter);
 app.all("*", (req, res) => {
   res.status(404).send("Not Found");
 });
+
+
+
+
+
+//seo bolte lala
+// Serve robots.txt
+app.get("/robots.txt", (req, res) => {
+  res.type("text/plain");
+  res.send(`User-agent: *
+Allow: /
+Sitemap: https://thedzire.com/sitemap.xml`);
+});
+
+// Serve sitemap.xml
+app.get("/sitemap.xml", (req, res) => {
+  res.header("Content-Type", "application/xml");
+  res.send(`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://thedzire.com/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://thedzire.com/collection</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thedzire.com/about</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thedzire.com/contact</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>`);
+});
+
+
 
 // Start the server
 app.listen(port, () => {
