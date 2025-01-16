@@ -37,12 +37,18 @@ app.use("/admin", express.static(path.join(rootDir, "admin/dist")));
 
 
 // Fallback route for user React app
-app.get("/*", (req, res) => {
+app.get("/*", (req, res,next) => {
+  if (req.path.startsWith("/api")) {
+    return next();
+  }
   res.sendFile(path.join(rootDir, "frontend/dist/index.html"));
 });
 
 // Fallback route for admin React app
-app.get("/admin/*", (req, res) => {
+app.get("/admin/*", (req, res,next) => {
+  if (req.path.startsWith("/api")) {
+    return next();
+  }
   res.sendFile(path.join(rootDir, "admin/dist/index.html"));
 });
 
